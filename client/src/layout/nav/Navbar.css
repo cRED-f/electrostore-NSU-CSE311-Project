@@ -1,0 +1,10 @@
+.content-container1 {
+  margin-top: 100px; /* Adjust the value to match the height of your sticky navbar */
+  /* Or use padding-top if you prefer */
+  /* padding-top: 100px; */
+}
+.nav-item {
+  color: #000;
+  text-decoration: none;
+  transition: color 0.3s ease-out;
+}
