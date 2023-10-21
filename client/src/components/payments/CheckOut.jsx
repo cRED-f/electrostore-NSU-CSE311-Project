@@ -19,7 +19,7 @@ import {
   LockClosedIcon,
 } from "@heroicons/react/24/solid";
 import { useDispatch } from "react-redux";
-import { checkout } from "../../redux/actions/userProducts";
+import { checkout, getCartData } from "../../redux/actions/userProducts";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -47,8 +47,8 @@ export default function CheckOut() {
     formData.append("phone_num", "");
     formData.append("password", "");
     dispatch(checkout(cart_id, formData));
-
     toast.success("Payment Successful");
+    dispatch(getCartData(cart_id));
     navigate(`/add-to-cart/${cart_id}`);
   };
 
@@ -62,8 +62,8 @@ export default function CheckOut() {
     formData.append("password", password);
     dispatch(checkout(cart_id, formData));
     toast.success("Payment Successful");
-
-    navigate(`/user/add-to-cart/${cart_id}`);
+    dispatch(getCartData(cart_id));
+    navigate(`/add-to-cart/${cart_id}`);
   };
 
   return (

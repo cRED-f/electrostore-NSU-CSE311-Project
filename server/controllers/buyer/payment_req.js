@@ -1,7 +1,7 @@
 import { db } from "../../data/database.js";
 import { v4 as uuidv4 } from "uuid";
 
-export const payment_req = async (req, res, next) => {
+export const payment_req = (req, res) => {
   const { cart_id } = req.params;
   const {
     address,
@@ -14,10 +14,11 @@ export const payment_req = async (req, res, next) => {
   } = req.body;
   const buyer_id = req.user.userID;
   const payment_req_id = uuidv4();
-
+  console.log(buyer_id);
+  console.log(cart_id);
   try {
     db.query(
-      "SELECT b.cart_id, b.products_id,b.num_of_booked,b.storage_id,b.buyer_id,b.name,b.email,b.discount,b.products_name,s.price,s.storage_id, p.stock FROM buyer_add_to_cart b JOIN products p ON b.products_id = p.products_id JOIN storage_options_products s ON b.products_id = s.products_id AND b.storage_id=s.storage_id  WHERE b.cart_id = ? AND b.buyer_id = ?",
+      "SELECT b.cart_id, b.products_id,b.num_of_booked,b.storage_id,b.buyer_id,b.name,b.email,b.discount,b.products_name,b.price,b.storage_id, p.stock FROM buyer_add_to_cart b JOIN products p ON b.products_id = p.products_id  WHERE b.cart_id = ? AND b.buyer_id = ?",
       [cart_id, buyer_id],
       (err, result) => {
         if (err) {
@@ -27,6 +28,7 @@ export const payment_req = async (req, res, next) => {
           });
         } else {
           if (!result.length) {
+            console.log(result);
             res.status(404).json({
               success: false,
               message: "Cart not found",
@@ -72,10 +74,23 @@ export const payment_req = async (req, res, next) => {
                     });
                     console.log(err);
                   } else {
-                    res.status(200).json({
-                      success: true,
-                      message: "Successfully added to payment",
-                    });
+                    db.query(
+                      "DELETE FROM buyer_add_to_cart WHERE cart_id = ? AND buyer_id = ?",
+                      [cart_id, buyer_id],
+                      (err, result) => {
+                        if (err) {
+                          res.status(500).json({
+                            success: false,
+                            message: "Internal server error",
+                          });
+                        } else {
+                          res.status(200).json({
+                            success: true,
+                            message: "Successfully added to payment request",
+                          });
+                        }
+                      }
+                    );
                   }
                 }
               );
