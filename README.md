@@ -14,7 +14,7 @@ This is an individual project
 
 
 ## Demo
-   user:
+    user:
 ![1](https://github.com/cRED-f/electrostore-NSU-CSE311-Project/assets/127311493/ddf1bc8d-b6cf-4144-810e-7a1757e8237b)
 
 ![2](https://github.com/cRED-f/electrostore-NSU-CSE311-Project/assets/127311493/2b36b4a7-6876-4491-bb57-b62cf9499a01)
