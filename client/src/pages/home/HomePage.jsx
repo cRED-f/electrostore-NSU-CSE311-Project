@@ -30,6 +30,7 @@ export default function homePage() {
   const billboard4 = billboard.filter(
     (item) => item.destination === "billboard-4"
   );
+  const hotDeal = billboard.filter((item) => item.destination === "Hot-Deal");
 
   return (
     <div className=" container1 relative gap-8 flex flex-col top-3">
@@ -46,26 +47,30 @@ export default function homePage() {
             <div>
               <img
                 className="rounded-lg h-[30vh] w-[40vh] object-cover"
-                alt="Apple Watch Series 7 in colors pink, silver, and black"
-                src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
+                src={
+                  hotDeal.length === 0
+                    ? ""
+                    : `${import.meta.env.VITE_IMG_SERVER}/uploads/${
+                        hotDeal[0].image
+                      }`
+                }
+                alt="Image not found"
+                name="image"
               />
             </div>
-            <a href="#">
-              <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                <p>Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport</p>
-              </h5>
-            </a>
 
-            <div className="flex items-center justify-between">
-              <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                $599
-              </span>
-              <a
+            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+              <p>🔥 {hotDeal[0]?.products_name} 🔥</p>
+            </h5>
+
+            <div className="flex ">
+              <Link
+                to={`/products/${hotDeal[0]?.products_id}`}
                 className="rounded-lg bg-gray-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-                href="#"
+                key={hotDeal[0]?.billboard_id}
               >
                 <p>Add to cart</p>
-              </a>
+              </Link>
             </div>
           </Card>
         </div>

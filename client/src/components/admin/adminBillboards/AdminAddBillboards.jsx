@@ -85,6 +85,7 @@ export default function AdminAddBillboards() {
                     <option value="billboard-2">billboard-2</option>
                     <option value="billboard-3">billboard-3</option>
                     <option value="billboard-4">billboard-4</option>
+                    <option value="Hot-Deal">Hot-Deal</option>
                   </select>
                 </div>
               </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 05, 2023 at 02:13 PM
+-- Generation Time: Nov 05, 2023 at 04:16 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -276,20 +276,6 @@ INSERT INTO `products` (`products_id`, `name`, `description`, `discount`, `stock
 -- --------------------------------------------------------
 
 --
--- Table structure for table `revenue`
---
-
-CREATE TABLE `revenue` (
-  `revenue_id` varchar(255) NOT NULL,
-  `categories_id` varchar(255) NOT NULL,
-  `types` varchar(100) NOT NULL,
-  `sales` int(255) NOT NULL,
-  `total_income` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `storage_options_products`
 --
 
@@ -401,7 +387,9 @@ ALTER TABLE `buyer`
 --
 ALTER TABLE `buyer_add_to_cart`
   ADD PRIMARY KEY (`cart_id`),
-  ADD KEY `addToCart_buyer_fk` (`buyer_id`);
+  ADD KEY `addToCart_buyer_fk` (`buyer_id`),
+  ADD KEY `products_id` (`products_id`),
+  ADD KEY `storage_id` (`storage_id`);
 
 --
 -- Indexes for table `buyer_payment_status`
@@ -421,27 +409,22 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `payment_req`
   ADD PRIMARY KEY (`payment_req_id`),
-  ADD KEY `buyer_id` (`buyer_id`);
+  ADD KEY `buyer_id` (`buyer_id`),
+  ADD KEY `cart_id` (`cart_id`);
 
 --
 -- Indexes for table `payment_status`
 --
 ALTER TABLE `payment_status`
-  ADD PRIMARY KEY (`payment_status_id`),
-  ADD KEY `payment_req_id` (`payment_req_id`);
+  ADD PRIMARY KEY (`payment_status_id`);
 
 --
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`products_id`);
-
---
--- Indexes for table `revenue`
---
-ALTER TABLE `revenue`
-  ADD PRIMARY KEY (`revenue_id`),
-  ADD KEY `categories_id` (`categories_id`);
+  ADD PRIMARY KEY (`products_id`),
+  ADD KEY `categories_id` (`categories_id`),
+  ADD KEY `sub_categories_id` (`sub_categories_id`);
 
 --
 -- Indexes for table `storage_options_products`
@@ -471,7 +454,9 @@ ALTER TABLE `billboards`
 -- Constraints for table `buyer_add_to_cart`
 --
 ALTER TABLE `buyer_add_to_cart`
-  ADD CONSTRAINT `buyer_add_to_cart_ibfk_1` FOREIGN KEY (`buyer_id`) REFERENCES `buyer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `buyer_add_to_cart_ibfk_1` FOREIGN KEY (`buyer_id`) REFERENCES `buyer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `buyer_add_to_cart_ibfk_2` FOREIGN KEY (`products_id`) REFERENCES `products` (`products_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `buyer_add_to_cart_ibfk_3` FOREIGN KEY (`storage_id`) REFERENCES `storage_options_products` (`storage_id`);
 
 --
 -- Constraints for table `buyer_payment_status`
@@ -486,10 +471,11 @@ ALTER TABLE `payment_req`
   ADD CONSTRAINT `payment_req_ibfk_1` FOREIGN KEY (`buyer_id`) REFERENCES `buyer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `revenue`
+-- Constraints for table `products`
 --
-ALTER TABLE `revenue`
-  ADD CONSTRAINT `revenue_ibfk_1` FOREIGN KEY (`categories_id`) REFERENCES `categories` (`types`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`categories_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`sub_categories_id`) REFERENCES `sub_categories` (`sub_categories_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `storage_options_products`
