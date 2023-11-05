@@ -23,7 +23,7 @@ import { useEffect } from "react";
 import AdminAddBillboards from "./components/admin/adminBillboards/AdminAddBillboards";
 import CheckOut from "./components/payments/CheckOut";
 import SubCategoriesProducts from "./components/categoriesProducts/SubCategoriesProducts";
-import Payment_status from "./components/profile/payment_status";
+import Payment_status from "./components/profile/Payment_status";
 
 function App() {
   const { message, error, userInfo, loading } = useSelector(
