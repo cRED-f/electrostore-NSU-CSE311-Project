@@ -15,14 +15,15 @@ This is an individual project
 
 ## Demo
     user:
-![1](https://github.com/cRED-f/electrostore-NSU-CSE311-Project/assets/127311493/ddf1bc8d-b6cf-4144-810e-7a1757e8237b)
+![1](https://github.com/cRED-f/electrostore-NSU-CSE311-Project/assets/127311493/0535d7c4-de71-44b0-a142-1c959c8df562)
 
-![2](https://github.com/cRED-f/electrostore-NSU-CSE311-Project/assets/127311493/2b36b4a7-6876-4491-bb57-b62cf9499a01)
+![2](https://github.com/cRED-f/electrostore-NSU-CSE311-Project/assets/127311493/5f2213ba-0d03-4376-b758-b3f49eff514a)
 
-![3](https://github.com/cRED-f/electrostore-NSU-CSE311-Project/assets/127311493/f68ae69e-cf20-4b1d-836a-a2345e98114f)
+![3](https://github.com/cRED-f/electrostore-NSU-CSE311-Project/assets/127311493/9bf8a42b-7b7a-438c-8282-a4390300a5cf)
 
     admin:
-![4](https://github.com/cRED-f/electrostore-NSU-CSE311-Project/assets/127311493/b93909c6-7422-43ef-826b-c7c33d9e76f3)
+![4](https://github.com/cRED-f/electrostore-NSU-CSE311-Project/assets/127311493/3a6aa5b6-ed34-4ae5-b03c-4c52fe20e95f)
+
 
 ## Contributing
 
