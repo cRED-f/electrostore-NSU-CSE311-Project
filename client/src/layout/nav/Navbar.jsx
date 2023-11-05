@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import { Input, Badge } from "@material-tailwind/react";
+import { Badge } from "@material-tailwind/react";
 
 import {
   getAllBillboard,
@@ -25,6 +25,7 @@ import {
 import "./Navbar.css";
 import { getCartData } from "../../redux/actions/userProducts";
 import axios from "axios";
+import SearchProducts from "../../components/searchProducts/SearchProducts";
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -144,7 +145,7 @@ export function StickyNavbar() {
           </div>
           <div className="flex justify-between   w-[27rem]">
             <div className="w-0 mx-2">
-              <Input label="Search Products" />
+              <SearchProducts />
             </div>
             <div className="flex  justify-between gap-3">
               <Badge content={`${cartData.length}`}>
@@ -160,10 +161,12 @@ export function StickyNavbar() {
               {Login ? (
                 <>
                   {" "}
-                  <IconButton variant="outlined" className="rounded-full">
-                    {" "}
-                    <RxPerson className="font-bold text-2xl" />{" "}
-                  </IconButton>{" "}
+                  <Link to={`/user/profile/${user?.data?.userID}`}>
+                    <IconButton variant="outlined" className="rounded-full">
+                      {" "}
+                      <RxPerson className="font-bold text-2xl" />{" "}
+                    </IconButton>{" "}
+                  </Link>
                   <Button variant="gradient" onClick={handleLogOutBtn}>
                     Log out
                   </Button>

@@ -4,7 +4,7 @@ export const userProductsReducer = createReducer(
   {
     loading: false,
     cartData: [],
-
+    payment_status: [],
     error: null,
     message: null,
   },
@@ -60,6 +60,18 @@ export const userProductsReducer = createReducer(
     },
     CLEAR_MESSAGE: (state) => {
       state.message = null;
+    },
+    GET_PAYMENT_STATUS_REQUEST: (state) => {
+      state.loading = true;
+    },
+    GET_PAYMENT_STATUS_SUCCESS: (state, action) => {
+      state.loading = false;
+      state.payment_status = action.payload.buyer_payment_req;
+      state.message = action.payload.message;
+    },
+    GET_PAYMENT_STATUS_ERROR: (state, action) => {
+      state.loading = false;
+      state.message = action.payload.message;
     },
   }
 );

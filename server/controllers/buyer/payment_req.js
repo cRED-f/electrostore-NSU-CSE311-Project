@@ -14,6 +14,7 @@ export const payment_req = (req, res) => {
   } = req.body;
   const buyer_id = req.user.userID;
   const payment_req_id = uuidv4();
+  const buyer_payment_id = uuidv4();
   console.log(buyer_id);
   console.log(cart_id);
   try {
@@ -84,10 +85,31 @@ export const payment_req = (req, res) => {
                             message: "Internal server error",
                           });
                         } else {
-                          res.status(200).json({
-                            success: true,
-                            message: "Successfully added to payment request",
-                          });
+                          db.query(
+                            "INSERT INTO buyer_payment_status (buyer_payment_id,buyer_id, payment_req_id,products_name, price, products_status ) VALUES (?,?,?,?,?,?)",
+                            [
+                              buyer_payment_id,
+                              buyer_id,
+                              payment_req_id,
+                              products_name,
+                              total_price,
+                              "pending",
+                            ],
+                            (err, result) => {
+                              if (err) {
+                                res.status(500).json({
+                                  success: false,
+                                  message: "Internal server error",
+                                });
+                              } else {
+                                res.status(200).json({
+                                  success: true,
+                                  message:
+                                    "Successfully added to payment request",
+                                });
+                              }
+                            }
+                          );
                         }
                       }
                     );

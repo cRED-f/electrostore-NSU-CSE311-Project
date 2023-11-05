@@ -15,9 +15,7 @@ export const productsStatus = async (req, res, next) => {
             success: false,
             message: "Internal server error",
           });
-          console.log(err);
         } else {
-          console.log(result1);
           if (result1 && result1.length >= 0) {
             db.query(
               "UPDATE payment_status SET status = ? WHERE payment_req_id = ?",
@@ -60,10 +58,24 @@ export const productsStatus = async (req, res, next) => {
                                 message: "Internal server error",
                               });
                             } else {
-                              res.status(200).json({
-                                success: true,
-                                message: "Payment status updated successfully",
-                              });
+                              db.query(
+                                "UPDATE buyer_payment_status set products_status = ? where payment_req_id=?",
+                                [status, payment_req_id],
+                                (err, result) => {
+                                  if (err) {
+                                    res.status(500).json({
+                                      success: false,
+                                      message: "Internal server error",
+                                    });
+                                  } else {
+                                    res.status(200).json({
+                                      success: true,
+                                      message:
+                                        "Successfully added to payment status",
+                                    });
+                                  }
+                                }
+                              );
                             }
                           }
                         );

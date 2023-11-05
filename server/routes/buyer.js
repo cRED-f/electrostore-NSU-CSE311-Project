@@ -4,6 +4,7 @@ import { isAuthenticated } from "../middlewares/isAuth.js";
 import { getAllProducts } from "../controllers/buyer/getAllProducts.js";
 import { payment_req } from "../controllers/buyer/payment_req.js";
 import { getBuyerCartData } from "../controllers/buyer/getBuyerCartData.js";
+import { buyer_payment_req } from "../controllers/buyer/buyer_payment_req.js";
 
 const router = express.Router();
 
@@ -18,4 +19,7 @@ router.get("/getAllProducts", getAllProducts);
 
 //all buyer payment routers
 router.post("/payment/:cart_id", isAuthenticated, payment_req);
+
+//all buyer payment status routers
+router.get("/payment/status/:buyer_id", isAuthenticated, buyer_payment_req);
 export default router;

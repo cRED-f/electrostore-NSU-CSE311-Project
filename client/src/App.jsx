@@ -23,6 +23,7 @@ import { useEffect } from "react";
 import AdminAddBillboards from "./components/admin/adminBillboards/AdminAddBillboards";
 import CheckOut from "./components/payments/CheckOut";
 import SubCategoriesProducts from "./components/categoriesProducts/SubCategoriesProducts";
+import Payment_status from "./components/profile/payment_status";
 
 function App() {
   const { message, error, userInfo, loading } = useSelector(
@@ -64,6 +65,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/products/:id" element={<ProductsCard />} />
               <Route path="/add-to-cart/:id" element={<AddToCart />} />
+              <Route path="/user/profile/:id" element={<Payment_status />} />
               <Route
                 path="/categories-products/:id"
                 element={<CategoriesProducts />}

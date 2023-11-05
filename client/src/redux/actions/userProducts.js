@@ -124,3 +124,34 @@ export const checkout = (id, formData) => async (dispatch) => {
     });
   }
 };
+
+//get user payment status
+
+export const getPaymentStatus = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "GET_PAYMENT_STATUS_REQUEST",
+    });
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_SERVER}/user/payment/status/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+
+    dispatch({
+      type: "GET_PAYMENT_STATUS_SUCCESS",
+      payload: data,
+    });
+
+    localStorage.setItem("paymentStatus", JSON.stringify(data));
+  } catch (error) {
+    dispatch({
+      type: "GET_PAYMENT_STATUS_ERROR",
+      payload: error.response.data.message,
+    });
+  }
+};
