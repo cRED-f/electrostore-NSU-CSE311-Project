@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFromCart, getCartData } from "../../redux/actions/userProducts";
 import { toast } from "react-hot-toast";
+
 export default function AddToCart() {
   //   const [open, setOpen] = React.useState(false);
 
@@ -18,9 +19,10 @@ export default function AddToCart() {
   const { cartData, loading } = useSelector((state) => state.userProducts);
   //function for delete
   const dltBtnHandler = (cart_id) => {
-    dispatch(deleteFromCart(cart_id));
-    toast.success("Item deleted from cart successfully");
     dispatch(getCartData(id));
+    dispatch(deleteFromCart(cart_id));
+    dispatch(getCartData(id));
+    toast.success("Item deleted from cart successfully");
   };
 
   return (

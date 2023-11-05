@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { addToCart } from "../../redux/actions/userProducts";
+import { getAllProducts } from "../../redux/actions/admin";
 export default function ProductsCard() {
   const { id } = useParams();
   const [active, setActive] = React.useState(1);
@@ -55,10 +56,9 @@ export default function ProductsCard() {
       const formData = new FormData();
       formData.append("num_of_booked", active);
       formData.append("storage", `${filter[0].storage_size}`);
-
       dispatch(addToCart(id, formData));
-
       toast.success("Added To Cart");
+      dispatch(getAllProducts());
     }
   };
   return (
